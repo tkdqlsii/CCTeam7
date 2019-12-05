@@ -15,7 +15,7 @@ for song in songs:
 
     
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-url = 'https://www.genie.co.kr/chart/top200?ditc=D&ymd=20191205&hh=20&rtm=Y&pg=2'
+url = 'https://www.genie.co.kr/chart/top200?ditc=D&pg=2'
 resp = requests.get(url, headers = headers)
 soup = BeautifulSoup(resp.text, 'html.parser')
 
