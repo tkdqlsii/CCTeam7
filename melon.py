@@ -11,4 +11,4 @@ artist = melon_parse.select('#lst50 > td:nth-child(6) > div > div > div.ellipsis
 
 rank = 50
 for r in range(rank):
-    print( rank +" : " +title[r].text + " - " + artist[r].text)
+    print(title[r].text + " - " + artist[r].text)
