@@ -1,5 +1,16 @@
+import pymysql
 import requests
+
 from bs4 import BeautifulSoup
+
+conn = pymysql.connect(host='localhost', user='root', password='gusgh4528',
+                       db='testdb', charset='utf8')
+curs=conn.cursor()
+#sql="select * from testdb.users"
+sql=""
+#curs.execute(sql)
+#rows=curs.fetchall()
+#print(rows)
 
 temp_tlist = []
 temp_alist = []
@@ -24,8 +35,17 @@ melon_html = melon.text
 melon_parse= BeautifulSoup(melon_html, 'html.parser')
 title = melon_parse.select('#lst100 > td:nth-child(6) > div > div > div.ellipsis.rank01 > span > a')
 artist = melon_parse.select('#lst100 > td:nth-child(6) > div > div > div.ellipsis.rank02 > span > a:nth-child(1)')
-
+sql="""insert into customer(title, artist, score)
+values ($s , $s ,$d)"""
 for r1 in range(50):
-    'print(title[r1].text + " - " + artist[r1].text)'
+    print(title[r1].text + " - " + artist[r1].text)
     temp_tlist.append(title[r1].text)
     temp_alist.append(artist[r1].text)
+for r in range(100):
+    curs.execute(sql,(temp_tlist[r],temp_alist[r], r) )
+    print(r)
+    
+    
+
+conn.commit()
+conn.close()
