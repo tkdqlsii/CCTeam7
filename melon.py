@@ -53,7 +53,6 @@ for r in range(100):
 sql="select * from testdb.melon"
 curs.execute(sql)
 rows=curs.fetchall()
-print(rows)
 
 conn.commit()
 conn.close()
