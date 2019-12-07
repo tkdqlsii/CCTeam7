@@ -10,7 +10,6 @@ conn = pymysql.connect(host='localhost', user='root', password=pw,
                        db='testdb', charset='utf8')
 curs=conn.cursor()
 
-
 sql="truncate table bugs"#데이터베이스 초기화 시킨다.
 curs.execute(sql)
 
@@ -19,36 +18,28 @@ bugs = requests.get('https://music.bugs.co.kr/chart/track/realtime/total', heade
 bugs_html = bugs.text
 bugs_parse= BeautifulSoup(bugs_html, 'html.parser')
 
-'cnt_artist=0'
 title_arr=[]
 artist_arr=[]
 
+# sep은 분리할 단어 replace로 모든 feat에 해당되는  대소문자 구분없이 feat라는 단어로 변경 후 분리
 for link1 in bugs_parse.find_all(name="p",attrs={"class":"title"}):
-    'cnt_artist+=1'
-    title_arr.append(link1.find('a').text)
+    sep = "feat"
+    tmp = link1.find('a').text.replace('(Feat',sep).replace('(feat',sep).replace('Feat',sep).split(sep)[0]
+    title_arr.append(tmp)
 
-'cnt_artist=0'
 for link1 in bugs_parse.find_all(name="p",attrs={"class":"artist"}):
-    'cnt_artist+=1'
     artist_arr.append(link1.find('a').text)
-'cnt_artist=0'
 
-for s in range(100):
+#출력부분 주석처리
+"""for s in range(100):
     print(str(s)+"위")
-    print("제목: " + title_arr[s] + "/ 가수 :"+artist_arr[s])
+    print("제목: " + title_arr[s] + "/ 가수 :"+artist_arr[s])"""
 
-sql="""
-INSERT INTO bugs (title, artist, score)
-VALUES (%s, %s, %s)
-"""
+sql="""INSERT INTO bugs (title, artist, score) VALUES (%s, %s, %s)"""
+
 for r in range(100):
     rc=r+1
     curs.execute(sql,(title_arr[r],artist_arr[r], rc) )
 
-
-
 conn.commit()
 conn.close()
-
-
-
