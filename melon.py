@@ -26,7 +26,7 @@ artist = melon_parse.select('#lst50 > td:nth-child(6) > div > div > div.ellipsis
 
 for r in range(50):
     sep = 'feat'
-    tmp = title[r].text.replace('(Feat',sep).replace('feat',sep).replace('Feat',sep).replace('(feat',sep).split(sep)[0]
+    tmp = title[r].text.replace('(Feat',sep).replace('Feat',sep).replace('(feat',sep).split(sep)[0]
     temp_tlist.append(tmp)
     temp_alist.append(artist[r].text)
 
@@ -39,7 +39,7 @@ artist = melon_parse.select('#lst100 > td:nth-child(6) > div > div > div.ellipsi
 
 for r1 in range(50):
     sep = 'feat'
-    tmp = title[r1].text.replace('(Feat',sep).replace('feat',sep).replace('Feat',sep).replace('(feat',sep).split(sep)[0]
+    tmp = title[r1].text.replace('(Feat',sep).replace('Feat',sep).replace('(feat',sep).split(sep)[0]
     temp_tlist.append(tmp)
     temp_alist.append(artist[r1].text)
 
@@ -50,9 +50,10 @@ for r in range(100):
     curs.execute(sql,(temp_tlist[r],temp_alist[r], rc) )
 
 #데이터베이스 조회해서 확인하는 과정
-sql="select * from testdb.melon"
+"""sql="select * from testdb.melon"
 curs.execute(sql)
 rows=curs.fetchall()
+print(row)"""
 
 conn.commit()
 conn.close()
