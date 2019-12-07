@@ -3,7 +3,7 @@ import requests
 def say():
     print ("hi")
 def dbcheck() :
-    pw='당신의 db의 비밀번호를 넣어주세요'
+    pw='gusgh4528'
     conn = pymysql.connect(host='localhost', user='root', password=pw,
                            db='testdb', charset='utf8')
     curs=conn.cursor()
@@ -20,6 +20,7 @@ def dbcheck() :
     create table genie(
     title varchar(100),
     artist varchar(100),
+    img varchar(150),
     score int,
     primary key(title)
     );
@@ -40,6 +41,7 @@ def dbcheck() :
     create table melon(
     title varchar(100),
     artist varchar(100),
+    img varchar(150),
     score int,
     primary key(title)
     );
@@ -59,6 +61,7 @@ def dbcheck() :
     create table bugs(
     title varchar(100),
     artist varchar(100),
+    img varchar(150),
     score int,
     primary key(title)
     );
