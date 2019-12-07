@@ -1,13 +1,15 @@
 import pymysql
 import requests
-
+import new
 from bs4 import BeautifulSoup
-pw='여기다 DB 비번을 써주세요'
-
+pw='당신의 db의 비밀번호를 넣어주세요'
+new.dbcheck()  #테이블이 있는지 확인하는 모듈의 함수
 conn = pymysql.connect(host='localhost', user='root', password=pw,
                        db='testdb', charset='utf8')
 curs=conn.cursor()
-sql="truncate table genie"#데이터베이스 초기화 시킨다.
+
+
+sql="truncate table melon"#데이터베이스 초기화 시킨다.
 curs.execute(sql)
 
 temp_tlist = []
@@ -33,7 +35,7 @@ melon_parse= BeautifulSoup(melon_html, 'html.parser')
 title = melon_parse.select('#lst100 > td:nth-child(6) > div > div > div.ellipsis.rank01 > span > a')
 artist = melon_parse.select('#lst100 > td:nth-child(6) > div > div > div.ellipsis.rank02 > span > a:nth-child(1)')
 sql="""
-INSERT INTO genie (title, artist, score)
+INSERT INTO melon (title, artist, score)
 VALUES (%s, %s, %s)
 """
 for r1 in range(50):
@@ -44,11 +46,12 @@ for r in range(100):
     rc=r+1
     curs.execute(sql,(temp_tlist[r],temp_alist[r], rc) )
 #데이터베이스 조회해서 확인하는 과정
-sql="select * from testdb.genie"
+"""
+sql="select * from testdb.melon"
 curs.execute(sql)
 rows=curs.fetchall()
 print(rows)
-
+"""
     
 
 conn.commit()
